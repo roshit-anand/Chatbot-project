@@ -12,13 +12,15 @@ import numpy as np
 from emo_utils import *
 import random
 import emojifyer
-
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.CRITICAL)
 
 
 #add data.txt if needed in filenames
 model = load_model('data/my_model.h5')
-word_to_index, index_to_word, word_to_vec_map = read_glove_vecs('data/glove.6B.50d.txt')
 
+word_to_index, index_to_word, word_to_vec_map = read_glove_vecs('data/glove.6B.50d.txt')
 
 filenames=["data.txt"]
 files={}       
@@ -91,7 +93,7 @@ class DialogueManager(object):
         self.chatbot.trainer=ChatterBotCorpusTrainer(self.chatbot)
         self.chatbot.trainer.train("chatterbot.corpus.english.greetings")
         #self.chatbot.trainer.train("chatterbot.corpus.english.conversations")
-        for filename in filenames:    
+        for filename in filenames:
             self.chatbot.trainer2.train(files[filename])
 
 
